@@ -1,0 +1,321 @@
+:root {
+  --primary-color: #2563eb;
+  --secondary-color: #1e40af;
+  --accent-color: #3b82f6;
+  --background-gradient: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+  --star-color: rgba(255, 255, 255, 0.2);
+  --star-size: 2px;
+  --star-count: 200;
+  --star-speed: 2s;
+  --particle-color: rgba(255, 255, 255, 0.1);
+  --particle-size: 1px;
+  --particle-count: 50;
+  --particle-speed: 3s;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+body {
+  background: var(--background-gradient);
+  background-size: 400% 400%;
+  animation: gradientBG 15s ease infinite;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.background-effects {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.star {
+  position: absolute;
+  width: var(--star-size);
+  height: var(--star-size);
+  background: var(--star-color);
+  border-radius: 50%;
+  animation: starMove var(--star-speed) linear infinite;
+}
+
+.particle {
+  position: absolute;
+  width: var(--particle-size);
+  height: var(--particle-size);
+  background: var(--particle-color);
+  border-radius: 50%;
+  animation: particleMove var(--particle-speed) linear infinite;
+}
+
+@keyframes starMove {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(100px, 100px);
+    opacity: 0.2;
+  }
+}
+
+@keyframes particleMove {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(200px, 200px);
+    opacity: 0;
+  }
+}
+
+/* Star animation */
+@keyframes starMove {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translate(100px, 100px);
+    opacity: 0.2;
+  }
+}
+
+/* Particle animation */
+@keyframes particleMove {
+  0% {
+    transform: translate(0, 0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(200px, 200px);
+    opacity: 0;
+  }
+}
+
+/* Background stars */
+.stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  width: var(--star-size);
+  height: var(--star-size);
+  background: var(--star-color);
+  border-radius: 50%;
+  animation: starMove var(--star-speed) linear infinite;
+}
+
+/* Background particles */
+.particles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.particle {
+  position: absolute;
+  width: var(--particle-size);
+  height: var(--particle-size);
+  background: var(--particle-color);
+  border-radius: 50%;
+  animation: particleMove var(--particle-speed) linear infinite;
+}
+
+/* Add stars and particles to body */
+body::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.2));
+}
+
+/* Add multiple stars */
+@for $i from 1 through var(--star-count) {
+  .stars::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--star-size) * #{$i});
+    left: calc(var(--star-size) * #{$i});
+    width: var(--star-size);
+    height: var(--star-size);
+    background: var(--star-color);
+    border-radius: 50%;
+    animation: starMove var(--star-speed) linear infinite;
+    animation-delay: calc(var(--star-speed) * -#{$i} / var(--star-count));
+  }
+}
+
+/* Add multiple particles */
+@for $i from 1 through var(--particle-count) {
+  .particles::before {
+    content: '';
+    position: absolute;
+    top: calc(var(--particle-size) * #{$i});
+    left: calc(var(--particle-size) * #{$i});
+    width: var(--particle-size);
+    height: var(--particle-size);
+    background: var(--particle-color);
+    border-radius: 50%;
+    animation: particleMove var(--particle-speed) linear infinite;
+    animation-delay: calc(var(--particle-speed) * -#{$i} / var(--particle-count));
+  }
+}
+
+@keyframes gradientBG {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Smooth transitions */
+* {
+  transition: all 0.3s ease-in-out;
+}
+
+/* Card animations */
+.card {
+  animation: slideIn 0.6s ease-out forwards;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+}
+
+/* Button animations */
+.button {
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    45deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.button:hover::after {
+  transform: translateX(100%);
+}
+
+/* Text animations */
+.h1 {
+  animation: pulse 2s infinite;
+}
+
+/* Floating elements */
+.floating {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Loading animation */
+.loading {
+  width: 40px;
+  height: 40px;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .card {
+    margin: 1rem;
+    padding: 1rem;
+  }
+  
+  .h1 {
+    font-size: 2rem;
+  }
+}
